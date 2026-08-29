@@ -1,0 +1,22 @@
+
+environment : qa # stg
+browser : firefox # firefox
+headless : True # True
+timeout : 10000
+
+environments:
+  qa:
+    url: "https://www.saucedemo.com"
+
+  stg:
+    url: "Staging Env"
+
+test_data:
+  locked_user:
+    username : locked_out_user
+    password : secret_sauce
+
+  invalid_user :
+    username : invalid_user
+    password : incorrect_pwd
+
