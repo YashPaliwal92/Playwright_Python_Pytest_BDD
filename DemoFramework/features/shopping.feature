@@ -1,4 +1,4 @@
-Feature: Shopping
+Feature: Validate user shopping behaviour
 
   Background: Valid user logins
     Given a valid user logs in
