@@ -7,8 +7,5 @@ from steps.login_steps import *
 
 scenarios(
     '../features/login.feature'
-    #'../features/shopping.feature'
+    '../features/shopping.feature'
 )
-#@scenario( "../features/shopping.feature","Verify user is able to successfully buy an item")
-#def test_buy_item():
- #   pass

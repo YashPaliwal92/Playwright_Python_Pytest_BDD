@@ -1,4 +1,4 @@
-Feature: Login
+Feature: Validate login scenarios
 
   Scenario: Verify user is able to login with valid credentials
     Given a valid user logs in

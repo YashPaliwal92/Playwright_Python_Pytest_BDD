@@ -1,1 +1,0 @@
-{"uuid": "bce2bf79-7505-467c-a333-740466f1d841", "children": ["b06cfa22-3dfe-4151-8951-c26a12d3d55f"], "befores": [{"name": "sauce_demo", "status": "passed", "start": 1787924574254, "stop": 1787924574254}], "afters": [{"name": "sauce_demo::<lambda>", "start": 1787924575586}], "start": 1787924574254, "stop": 1787924575586}
