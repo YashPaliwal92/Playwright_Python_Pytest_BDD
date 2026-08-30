@@ -10,6 +10,12 @@ parameters:
     - qa
     - stg
 
+#Run Smoke only option
+- name: smoke
+  displayName: 'Run smoke tests only'
+  type: boolean
+  default: false
+
 #Everytime there is a commit in master branch pipeline will run automatically
 trigger:
 - master
@@ -38,10 +44,23 @@ steps:
     python -m playwright install --with-deps
   displayName: 'Install Playwright browsers'
 
+#Run smoke test if smoke option is true
+- script: |
+    cd DemoFramework
+    pytest -m smoke --junitxml=test-results.xml --html=report.html --self-contained-html
+  displayName: 'Run Smoke tests'
+  condition: eq('${{ parameters.smoke }}', 'true')
+  env:
+    TEST_USERNAME: $(TEST_USERNAME)
+    TEST_PASSWORD: $(TEST_PASSWORD)
+    TEST_ENVIRONMENT: ${{parameters.environment}}
+
+#Run all test cases if smoke option is false
 - script: |
     cd DemoFramework
     pytest --junitxml=test-results.xml --html=report.html --self-contained-html
   displayName: 'Run Playwright tests'
+  condition: eq('${{ parameters.smoke }}', 'false')
   env:
     TEST_USERNAME: $(TEST_USERNAME)
     TEST_PASSWORD: $(TEST_PASSWORD)
