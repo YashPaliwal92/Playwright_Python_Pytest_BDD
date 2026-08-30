@@ -2,7 +2,7 @@ Feature: Validate user shopping behaviour
 
   Background: Valid user logins
     Given a valid user logs in
-
+  @smoke
   Scenario: Verify user is able to successfully buy an item
     When user selects the product 'Sauce Labs Backpack'
     Then product should be added to cart

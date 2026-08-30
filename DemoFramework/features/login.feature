@@ -1,5 +1,5 @@
 Feature: Validate login scenarios
-
+  @smoke
   Scenario: Verify user is able to login with valid credentials
     Given a valid user logs in
     Then user should login successfully
