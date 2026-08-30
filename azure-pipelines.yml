@@ -1,14 +1,11 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
+#Everytime there is a commit in master branch pipeline will run automatically
 trigger:
 - master
 
 pool:
   vmImage: ubuntu-latest
 
+#Set important id and password in variable group
 variables:
 - group: test_env_variable 
 
@@ -37,6 +34,7 @@ steps:
     TEST_USERNAME: $(TEST_USERNAME)
     TEST_PASSWORD: $(TEST_PASSWORD)
 
+#PublishTestResult@2 - this task publishes report to Test section of pipeline
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
