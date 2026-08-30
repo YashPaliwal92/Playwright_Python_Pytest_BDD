@@ -13,7 +13,7 @@ class ConfigReader:
             return yaml.safe_load(file)
 
     def get_environment(self):
-        return self.config['environment']
+        return os.getenv("TEST_ENVIRONMENT",self.config['environment'])
 
     def get_browser(self):
         return self.config['browser']
