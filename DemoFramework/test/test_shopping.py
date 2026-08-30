@@ -6,6 +6,6 @@ from steps.product_steps import *
 from steps.login_steps import *
 
 scenarios(
-    '../features/login.feature'
+    '../features/login.feature',
     '../features/shopping.feature'
 )
