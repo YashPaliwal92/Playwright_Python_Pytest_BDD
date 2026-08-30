@@ -1,3 +1,15 @@
+
+
+#Setup qa/stg env options
+parameters:
+- name: environment
+  displayName: 'Test Environment'
+  type: string
+  default: qa
+  values:
+    - qa
+    - stg
+
 #Everytime there is a commit in master branch pipeline will run automatically
 trigger:
 - master
@@ -33,6 +45,7 @@ steps:
   env:
     TEST_USERNAME: $(TEST_USERNAME)
     TEST_PASSWORD: $(TEST_PASSWORD)
+    TEST_ENVIRONMENT: ${{parameters.environment}}
 
 #PublishTestResult@2 - this task publishes report to Test section of pipeline
 - task: PublishTestResults@2
