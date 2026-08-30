@@ -1,0 +1,55 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: test_env_variable 
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.14'
+  displayName: 'Setup Python 3.14'
+
+- script: |
+    cd DemoFramework
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
+    cd DemoFramework
+    python -m playwright install --with-deps
+  displayName: 'Install Playwright browsers'
+
+- script: |
+    cd DemoFramework
+    pytest --junitxml=test-results.xml --html=report.html --self-contained-html
+  displayName: 'Run Playwright tests'
+  env:
+    TEST_USERNAME: $(TEST_USERNAME)
+    TEST_PASSWORD: $(TEST_PASSWORD)
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'DemoFramework/test-results.xml'
+  displayName: 'Publish JUnit test results'
+  condition: succeededOrFailed()
+
+ # Uploads the HTML report so you can download and view it from the build summary
+- task: PublishPipelineArtifact@1
+  inputs:
+     targetPath: '$(System.DefaultWorkingDirectory)/DemoFramework/report.html'
+     artifact: 'Playwright-HTML-Report'
+     publishLocation: 'pipeline'
+  displayName: 'Publish HTML Report Artifact'
+  condition: succeededOrFailed()  
+    
